@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bariskan Kilic - Resume</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="resume.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:description" content="bariskan is this and this">
+        <link rel="icon" href="images/bariskankiliconlylogo2.png" type="image/png" sizes="2x2">
+    </head>
+<body>
+    <div id="container">
+        <header class="nav">
+            <div id="logo">
+                <div class="img-container">
+                    <a href="index.html">
+                        <img src="images/bariskankiliclogo.png" alt="bariskankiliclogo"> 
+                    </a>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">home</a></li>
+                    <li><a href="business.html">businesses</a></li>
+                    <li><a href="professionals.html">professionals</a></li>
+                    <li><a href="resume.html" class ="active">9.99</a></li>
+                    <li><a href="testimonials.html">testimonials</a></li>
+                    <li><a href="blog.html">blog</a></li>
+                    <li><a href="contactschedule.html">contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div id="main" role="main">
+        <article class="intro">
+        <section>
+            <h2 class="collapsible-header">Work Experience</h2>
+            <div class="collapsible-content">
+            <p>Senior Salesforce Administrator (Berlin, Germany, August 2022 - Current)</p>
+            <ul>
+                <li>Oversee Flow Infrastructure by refactoring complex flows and create flow guidelines for other developers to follow</li>
+                <li>Create a custom round robin application with Schedule, Batch APEX, and Lightning Web Components</li>
+                <li>Implement GDPR compliance project with Schedule and Batch APEX and anonymize 380K leads</li>
+                <li>In the process of designing the before conversion part of internalization project to create a new org</li>
+                <li>Integrate marketing and customer portal systems with salesforce with REST API and Platform Events</li>
+                <li>Hold technical and cultural interviews for salesforce admins and developers</li>
+                <li>Create invocable methods to overcome limitations of flows</li>
+                <li>Debug and troubleshoot any issue regarding trigger, flow, Bulk API, REST API, APEX</li>
+                <li>Train and share knowledge to junior members to develop them professionally</li>
+            </ul>
+            <h3>INSPARK Intelligent Business Solutions</h3>
+            <p>Salesforce Consultant (Istanbul, Turkey, June 2021 - August 2022)</p>
+            <ul>
+                <li>Analyze data issues and contact product owners of other integrated systems to resolve them</li>
+                <li>Configure flows and apex triggers to automate business processes</li>
+                <li>Hold workshop meetings to gather requirements</li>
+                <li>Responsible for four Sales and Service cloud projects on international projects</li>
+            </ul>
+        </div>
+        </section>
+        <section>
+            <h2 class="collapsible-header">Project Highlights</h2>
+            <div class="collapsible-content">
+            <h3>Custom Solution to Distribute Records Instead of Omni-Channel (Soon to be on AppExchange)</h3>
+            <p>Requirements:</p>
+            <ul>
+                <li>Departments are in need to prioritize certain case records based on defined criteria.</li>
+                <li>Users should have a component to see which records are assigned to them with fields and their values, similar to Omni-Channel component.</li>
+                <li>Users should be able to view a record which should be directed from the component.</li>
+                <li>The component should paginate assigned records in 5.</li>
+                <li>The criteria and their priority should be modifiable by managers.</li>
+                <li>Record assignments should be stoppable by managers.</li>
+                <li>Standard Queues and Public Groups should be used to decide to whom records will be distributed to.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Create 2 custom objects (Parent) Round Robin Rule, (Child) Round Robin Query Sort respectively.</li>
+                <li>Have a checkbox for managers to stop users to own a record on the parent object.</li>
+                <li>Have a text field to specify queue developer name for managers to decide which users should be able to own records on the parent object.</li>
+                <li>Have a text field to place a query that returns certain amount of records with specified criteria on the child object.</li>
+                <li>Have a number field to specify the prioritization for the managers on the child object.</li>
+                <li>Create a LWC component and place it in the utility bar in the app.</li>
+                <li>Place a "Own a Record" button on LWC. When a user clicks the button, query all child records in an ascending order based on priority and query records.</li>
+                <li>Assign the first record to user.</li>
+                <li>I can't explain how the rendering happens because it's my intellectual property.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>Queues have more than 90 users and it's likely that they might click to the button and the record is assigned to both users within miliseconds one after the other. Record locking was needed to prevent it.</li>
+                <li>Since the first record is locked for the whole transaction, users might have gotten the "record is locked error" or "record is owned by someone else, try again" that was thrown.
+                     randomization was introduced meaning that if the rule returned 20 records in total based on priority, one of the first 5 records was randomly picked.</li>
+            </ul>
+            <h3>Role Permission Set Group Automation for Sales Department</h3>
+            <p>Requirements:</p>
+            <ul>
+                <li>Store permission set groups mapping for each sales role; Sales TL, Sales, VP Sales, Sales Director and other roles.</li>
+                <li>When a user with a sales role is created assign corresponding permission set groups.</li>
+                <li>When a sales user's role is changed from one sales role to another, make sure to delete old role's permission set assignment and create new permission set assignments.</li>
+                <li>When a sales user's role is changed to a role outside of sales department, delete all corresponding permission set assignments.</li>
+                <li>When a user outside of sales department is assigned to one of the sales roles, make sure that they don't already have any of the corresponding permission set assignments and create missing ones.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Create a trigger on user that is triggered upon creation and update and handle actions in a controller class.</li>
+                <li>Store permission set groups and role mappings in a custom metadata.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>Trigger is bulkified</li>
+            </ul>
+            <h3>Close Case API and Refactoring</h3>
+            <p>Context:</p>
+            <ul>
+                <li>Users close different types of cases either successfully or unsuccessfuly using a screen flow.</li>
+                <li>They need to choose one mandatory and two optional unsuccessful reasons, and a comment.</li>
+                <li>The screen flow, closes the case and based on the type, updates different records.</li>
+            </ul>
+            <p>Requirements:</p>
+            <ul>
+                <li>An external system needs to be able to close a certain type of case unsuccessfully which is a process that's already exists and is triggered via screen flow.</li>
+                <li>The endpoint and screen flow should follow the same logic.</li>
+                <li>When a case is closed through endpoint, the owner should be changed to user in salesforce with the same azure id that's provided in the request.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Create a class utilizing factory pattern so if the same or other external systems require to close cases successfully or unsuccessfully, we don't create a new class each time.</li>
+                <li>Create an invocable method and replace the logic in screen flow with it so the record can be locked to prevent overwriting.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>Owner of the case should only be changed when it's closed through endpoint and not invocable method, created a wrapper to specify whether owner change is needed or not along with other values.</li>
+                <li>External system might send rejection reasons between 1 or 3, dynamic apex is used respected fields are assigned to provided values instead of bunch of repetitive if and else blocks.</li>
+                <li>Other related records were updated on the case, there were lots of possibilities for things to go south. Custom exception classes are created to throw exceptions between classes to warn other systems and users who are using the screen flow.</li>
+            </ul>
+            <h3>Reassignment of Sales Calls via Rest API</h3>
+            <p>Context:</p>
+            <ul>
+                <li>Users have two types of sales calls as records in event object, reserved and available slot.</li>
+                <li>Booking agents and an external system are responsible for booking available slots and turn them into reserved ones.</li>
+                <li>External system provides event id that needs to be reassigned and azure id of the targeted assignee.</li>
+                <li>Reserved events have the following naming convention for subject: customer name - user name.</li>
+            </ul>
+            <p>Requirements:</p>
+            <ul>
+                <li>Targeted user has an available slot at the same start date/time needs to be checked.</li>
+                <li>The event id that is sent and the available slot of targeted assignee should be locked so other systems or users shouldn't overwrite the current transaction.</li>
+                <li>Records that are related to what polymorphic relationship should be updated such as what id's (case) parent case, opportunity and other child cases.</li>
+                <li>The naming convention of the reassigned event's subject needs to be modified; targeted assignee's name should be replaced with the previous one, and "(Reasigned)" needs to be added at the end of it.</li>
+                <li>If all criteria met, the available slot of the target assignee should be deleted.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Created an endpoint for the external system to make a call out with two parameters: event id and azure id of the targeted user.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>TYPEOF is used to query case in what id polymorphic lookup along with its parent case and opportunity to save two SOQL statements.</li>
+                <li>All records to be updated are collect into SObject list to make transaction control easy when an exception is caught.</li>
+            </ul>
+            <h3>Global Sales</h3>
+            <p>Context:</p>
+            <ul>
+                <li>There are a few sales channels where leads are received.</li>
+                <li>They're all following the same customer journey with small changes: owners are not the same for leads, parent case, opportunity, account and child cases.
+                    Some child cases needs to be auto-closed (inserted as Closed - Successful). Leads need to be auto-converted excluding a criteria for some channels and for some this criteria should be there.
+                </li>
+                <li>These rules were in different flows and when a new sales channel is introduced, we needed to change all of the flows, resulting in 5-7 user stories.</li>
+            </ul>
+            <p>Requirements:</p>
+            <ul>
+                <li>Map all sales channels as key to its corresponding lead, account, opportunity, parent case owners, auto-conversion criteria exclusion option in custom metadata.</li>
+                <li>Apply this logic to already existing customer journey logic which is managed in case triggers that is responsible for creating new cases.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Reference the custom metadata in all flows and triggers so when a new sales channel comes, all it's needed is to add a new entry to custom metadata.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>There is already an existing logic which is in case trigger to make sure customer journey proceeds. Global sales needed to be applied to it instead of extending the logic and making it more complicated.</li>
+            </ul>
+            <h3>Auto-convert Leads</h3>
+            <p>Context:</p>
+            <ul>
+                <li>Marketing inserts leads and updates them based on the customer inputted data through sliders.</li>
+                <li>Users are manually checking certain fields and related records on leads and converting them.</li>
+            </ul>
+            <p>Requirements:</p>
+            <ul>
+                <li>Implement a solution to check if a lead is qualified for conversion upon insertion or after an update.</li>
+                <li>If a lead meets all the criteria, convert the lead.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Create lead trigger and handler classes to check if inserted and updated leads are qualified to convert.</li>
+                <li>If a lead is qualified, convert it using an invocable method via apex.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>Before converting a qualified lead, duplicate check needed to be done in a bulkified way. If a lead exists with the same external id as account, then it shouldn't be converted and checked as duplicate.</li>
+            </ul>
+            <h3>Anonymize Leads</h3>
+            <p>Context:</p>
+            <ul>
+                <li>Companies in Europe needs to comply with GDPR as a result lead anonymization project was initiated.</li>
+                <li>We might have multiple leads for the same customer or a customer might already have an account.</li>
+                <li>External id is used to identify a customer</li>
+            </ul>
+            <p>Requirements:</p>
+            <ul>
+                <li>Personal identification fields (such as First Name, Last Name, Email etc.) of Lead records that are lost or not updated for certain time
+                    needs to be anonymized, a default value needs to be placed.
+                </li>
+                <li>Default values for each personal identification field needs to be mapped in a custom metadata.</li>
+            </ul>
+            <p>Solution:</p>
+            <ul>
+                <li>Create a batch and schedule apex to query leads and anonymize them.</li>
+            </ul>
+            <p>Challenges:</p>
+            <ul>
+                <li>Other systems subscribe to changes of personal identification fields, we need to be absolutely sure to anonymize a lead or not.</li>
+                <li>If there is any other newer lead that a customer has or if a customer has already have an account, anonymization for that customer shouldn't be executed.</li>
+                <li>If there is no newer leads and no accounts for the customer, all leads that belong to the customer needs to be anonymized.</li>
+                <li>All execution a customer from anonymization and anonymization processes need to be done in a bulkified way.</li>
+            </ul>
+        </div>
+        </section>
+        <section>
+            <h2 class="collapsible-header">Education</h2>
+            <div class="collapsible-content">
+            <p>Georgia State University, Atlanta GA</p>
+            <p>Bachelor of Business Administration – Computer Information Systems (Fall 2017 – Summer 2021)</p>
+            <p>Honors, GPA 3.31, Dean’s List 5 Semesters, President’s List 1 Semester</p>
+        </section>
+        <section>
+            <h2 class="collapsible-header">Technical Skills</h2>
+            <div class="collapsible-content">
+            <ul>
+                <li>APEX</li>
+                <li>LWC</li>
+                <li>SOQL</li>
+                <li>JavaScript</li>
+                <li>HTML</li>
+                <li>Apex Triggers</li>
+                <li>REST API</li>
+                <li>Platform Events/Change Data Capture</li>
+                <li>Flows</li>
+            </ul>
+        </div>
+        </section>
+        <section>
+            <h2 class="collapsible-header">Certifications</h2>
+            <div class="collapsible-content">
+            <ul>
+                <li>Salesforce Platform Developer II</li>
+                <li>Salesforce Application Architect</li>
+                <li>Salesforce Data Architect</li>
+                <li>Salesforce Sharing and Visibility Architect</li>
+                <li>Salesforce Process Automation Accredited Professional</li>
+                <li>Salesforce Platform Developer I</li>
+                <li>Salesforce Certified Service Consultant</li>
+                <li>Salesforce Certified Sales Consultant</li>
+                <li>Salesforce Certified Advanced Administrator</li>
+                <li>Salesforce Platform App Builder</li>
+                <li>Tableau Desktop Specialist</li>
+                <li>AWS CertifiedCloud Practitioner</li>
+                <li>Salesforce CertifiedAdministrator</li>
+            </ul>
+        </div>
+        </section>
+        <section>
+            <h2 class="collapsible-header">Volunteer Work</h2>
+            <div class="collapsible-content">
+            <p>Trailblazer Mentorship Program (Salesforce, March 2022 - Current, Remote)</p>
+            <ul>
+                <li>This program is owned by Salesforce where a different mentee is assigned to a mentor each month to guide mentee’s Salesforce journey</li>
+            </ul>
+            <p>Trailblazer Answers Leader (Salesforce, Remote)</p>
+            <ul>
+                <li>An answers leader is someone who answer questions on trailblazer community to help other trailblazers</li>
+            </ul>
+        </div>
+        </section>
+        <section>
+            <h2 class="collapsible-header">Tools</h2>
+            <div class="collapsible-content">
+            <ul>
+                <li>Visual Studio Code</li>
+                <li>Salesforce Inspector</li>
+                <li>Salesforce Data Loader</li>
+                <li>Salesforce Workbench</li>
+                <li>Jira</li>
+                <li>Confluence</li>
+                <li>Copado</li>
+                <li>Simple Survey</li>
+                <li>Azure AD</li>
+            </ul>
+        </div>
+        </section>
+        </article>
+        </div>
+    <footer>
+        <hr>
+        <p>&copy; 2023 Bariskan Kilic. All rights reserved.</p>
+        <div class="footer-links">
+        <p>
+            <small>
+                <a href="privacypolicy.html">Privacy Policy</a>
+            </small>
+        </p>
+        <p>
+            <small>
+                <a href="legal.html">Legal</a>
+            </small>
+        </p>
+        </div>
+    </footer>
+    </div>
+    <script src="resume.js"></script>
+</body>
+</html>
